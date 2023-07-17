@@ -8,10 +8,11 @@ public class RSA{
     private BigInteger N_prime;
     private BigInteger e;
     private BigInteger d;
+    
     private static BigInteger x;
     private static BigInteger y;
-    private final static int defaultLowerBound = 1;
-    private final static int defaultUpperBound = 1000000001;
+    private final static BigInteger defaultLowerBound = new BigInteger("1");
+    private final static BigInteger defaultUpperBound = new BigInteger("1000000");
     
     public RSA(){
         p = primeGenerator(defaultLowerBound, defaultUpperBound); //Default range from 1 to a billion includsive.
@@ -19,7 +20,7 @@ public class RSA{
         Intialising();
     }
     
-    public RSA(int start, int end){
+    public RSA(BigInteger start, BigInteger end){
         //Generate Primes First
         p = primeGenerator(start, end);
         q = primeGenerator(start, end);
@@ -110,26 +111,25 @@ public class RSA{
      * @param start, the lower limit of the range.
      * @param end, the upper limit of the range.
      */
-    private static BigInteger primeGenerator(int start, int end){
-        if(start <= 0 && end <= 0){
+    private static BigInteger primeGenerator(BigInteger start, BigInteger end){
+        if(start.compareTo(BigInteger.ZERO) <= 0 && end.compareTo(BigInteger.ZERO) <= 0){
             throw new IllegalArgumentException("Both start and end must be positive integers.");
         }
-        Random r1 = new Random();
-        int prime = r1.nextInt(start, end+1);//Both start and end must be inclusive.
-        int counter = 0;
+        BigInteger prime = bigIntegerGenerator(start, end.add(BigInteger.ONE));
+        BigInteger counter = new BigInteger("0");
         boolean isPrime = false;
         while(!isPrime){//while is prime is false.
-            if(prime <= 1){//not prime
-                prime = r1.nextInt(start, end+1);
-                counter++;
+            if(prime.compareTo(BigInteger.ONE) <= 0){//not prime
+                prime = bigIntegerGenerator(start, end.add(BigInteger.ONE));
+                counter = counter.add(BigInteger.ONE);
                 continue;
             }
             else{
                 isPrime = true;
-                for(int i = 2; i <= prime/2; i++){
-                    if((prime % i) == 0){
-                        prime = r1.nextInt(start, end+1);
-                        counter++;
+                for(BigInteger i = new BigInteger("2"); i.compareTo(prime.divide(BigInteger.TWO)) <= 0; i = i.add(BigInteger.ONE)){
+                    if(prime.mod(i).equals(BigInteger.ZERO)){
+                        prime = bigIntegerGenerator(start, end.add(BigInteger.ONE));
+                        counter = counter.add(BigInteger.ONE);
                         isPrime = false;
                         break;
                     }
@@ -138,13 +138,23 @@ public class RSA{
                     break;
                 }
                 //Is not prime when the code path to here.
-                if(counter*5 >= (end-start)){
+                
+                if(counter.compareTo(end.subtract(start).multiply(BigInteger.TEN)) == 1){
                     throw new IllegalArgumentException("Prime cannot be found between" + start + " and " + end);
                 }
+                
             }
         }
         //After the while loop the number generated should be an prime number.
-        BigInteger temp = new BigInteger(Integer.toString(prime));
+        return prime;
+    }
+    
+    private static BigInteger bigIntegerGenerator(BigInteger start, BigInteger end){
+        BigInteger difference = end.subtract(start);
+        BigInteger newBI = new BigInteger(end.bitLength(), new Random());
+        BigInteger reminder = newBI.mod(difference);
+        BigInteger temp = start.add(reminder);
+        System.out.println(temp);
         return temp;
     }
     
