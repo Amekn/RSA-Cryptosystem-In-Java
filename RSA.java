@@ -10,6 +10,14 @@ public class RSA{
     private BigInteger d;
     private static BigInteger x;
     private static BigInteger y;
+    private final static int defaultLowerBound = 1;
+    private final static int defaultUpperBound = 1000000001;
+    
+    public RSA(){
+        p = primeGenerator(defaultLowerBound, defaultUpperBound); //Default range from 1 to a billion includsive.
+        q = primeGenerator(defaultLowerBound, defaultUpperBound);
+        Intialising();
+    }
     
     public RSA(int start, int end){
         //Generate Primes First

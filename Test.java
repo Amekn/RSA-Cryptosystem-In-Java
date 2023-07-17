@@ -1,7 +1,7 @@
 import java.math.BigInteger;
 public class Test{
     public static void main(String[] args){
-        RSA r1 = new RSA(1000000000, 2000000000);
+        RSA r1 = new RSA();
         //Encrypting a text;
         BigInteger plaintext = new BigInteger("17892");
         BigInteger ciphertext = r1.encryption(plaintext);
