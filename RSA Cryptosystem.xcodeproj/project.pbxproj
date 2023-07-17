@@ -1,0 +1,76 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXFileReference section */
+		F0D063D72A64A5C900C65AB7 /* RSA.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = RSA.java; sourceTree = "<group>"; };
+		F0D063D82A64ABFD00C65AB7 /* Test.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = Test.java; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		F0D063CF2A64A58200C65AB7 = {
+			isa = PBXGroup;
+			children = (
+				F0D063D82A64ABFD00C65AB7 /* Test.java */,
+				F0D063D72A64A5C900C65AB7 /* RSA.java */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		F0D063D02A64A58200C65AB7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = F0D063D32A64A58200C65AB7 /* Build configuration list for PBXProject "RSA Cryptosystem" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F0D063CF2A64A58200C65AB7;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		F0D063D42A64A58200C65AB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		F0D063D52A64A58200C65AB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F0D063D32A64A58200C65AB7 /* Build configuration list for PBXProject "RSA Cryptosystem" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0D063D42A64A58200C65AB7 /* Debug */,
+				F0D063D52A64A58200C65AB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F0D063D02A64A58200C65AB7 /* Project object */;
+}
