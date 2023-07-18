@@ -16,14 +16,14 @@ public class RSA{
     
     public RSA(){
         p = primeGenerator(defaultLowerBound, defaultUpperBound); //Default range from 1 to a billion includsive.
-        q = primeGenerator(defaultLowerBound, defaultUpperBound);
+        q = equivalenceGenerate(p, defaultLowerBound, defaultUpperBound);
         Intialising();
     }
     
     public RSA(BigInteger start, BigInteger end){
         //Generate Primes First
         p = primeGenerator(start, end);
-        q = primeGenerator(start, end);
+        q = equivalenceGenerate(p, start, end);
         Intialising();
     }
     
@@ -61,6 +61,21 @@ public class RSA{
         System.out.print(this);
     }
     
+    private static BigInteger equivalenceGenerate(BigInteger p, BigInteger start, BigInteger end){
+        BigInteger q = BigInteger.ZERO;
+        int i;
+        for(i = 0; i < 100; i++){
+            q = bigIntegerGenerator(start, end);
+            if(!(q.equals(p))){
+                break;
+            }
+        }
+        if(i == 100){
+            throw new IllegalArgumentException("Could not find two difference prime in the range.");
+        }
+        return q;
+    }
+    
     private static void fullGcd( BigInteger a, BigInteger b )
     {
          BigInteger x1, y1;
@@ -82,7 +97,7 @@ public class RSA{
      * Solve ax == 1 (mod n), assuming gcd( a, n ) = 1.
      * @return x.
      */
-     public static BigInteger inverse( BigInteger a, BigInteger n )
+     private static BigInteger inverse( BigInteger a, BigInteger n )
      {
          fullGcd( a, n );
          //compareTo??
@@ -115,6 +130,9 @@ public class RSA{
         if(start.compareTo(BigInteger.ZERO) <= 0 && end.compareTo(BigInteger.ZERO) <= 0){
             throw new IllegalArgumentException("Both start and end must be positive integers.");
         }
+        if(!(start.compareTo(end) == -1)){
+            throw new IllegalArgumentException("Please ensure start must be smaller than end.");
+        }
         BigInteger prime = bigIntegerGenerator(start, end.add(BigInteger.ONE));
         BigInteger counter = new BigInteger("0");
         boolean isPrime = false;
@@ -134,11 +152,7 @@ public class RSA{
                         break;
                     }
                 }
-                if(isPrime == true){
-                    break;
-                }
                 //Is not prime when the code path to here.
-                
                 if(counter.compareTo(end.subtract(start).multiply(BigInteger.TEN)) == 1){
                     throw new IllegalArgumentException("Prime cannot be found between" + start + " and " + end);
                 }
@@ -154,7 +168,6 @@ public class RSA{
         BigInteger newBI = new BigInteger(end.bitLength(), new Random());
         BigInteger reminder = newBI.mod(difference);
         BigInteger temp = start.add(reminder);
-        System.out.println(temp);
         return temp;
     }
     
